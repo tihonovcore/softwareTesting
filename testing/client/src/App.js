@@ -1,4 +1,5 @@
 import React from 'react';
+import Login from './Login.js';
 import './App.css';
 
 function Square(props) {
@@ -89,7 +90,7 @@ function calculateWinner(squares) {
 
     for (let line = 0; line < lines.length; line++) {
         let [a, b, c] = lines[line];
-        if (squares[a] === squares[b] && squares[b] === squares[c]) {
+        if (squares[a] !== null && squares[a] === squares[b] && squares[b] === squares[c]) {
             return squares[a];
         }
     }
@@ -97,4 +98,40 @@ function calculateWinner(squares) {
     return null;
 }
 
-export default Board;
+class Game extends React.Component {
+    constructor(props) {
+        super(props);
+
+        this.onLogin = this.onLogin.bind(this);
+
+        this.state = {
+            logged: false,
+            xName: "",
+            oName: ""
+        };
+    }
+
+    render() {
+        if (!this.state.logged) {
+            return (
+                <Login
+                    xName={this.state.xName}
+                    oName={this.state.oName}
+                    onLogin={this.onLogin}
+                />
+            );
+        } else {
+            return (<Board/>);
+        }
+    }
+
+    onLogin(xName, oName) {
+        this.setState({
+            logged: true,
+            xName: xName,
+            oName: oName
+        });
+    }
+}
+
+export default Game;

@@ -1,14 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import './App.css';
 
-class Square extends React.Component {
-    render() {
-        return (
-            <button className="square" onClick={this.props.onClick}>
-                {this.props.value}
-            </button>
-        );
-    }
+function Square(props) {
+    return (
+        <button className="square" onClick={props.onClick}>
+            {props.value}
+        </button>
+    );
 }
 
 class Board extends React.Component {
@@ -16,12 +14,19 @@ class Board extends React.Component {
         super(props);
 
         this.state = {
-            squares: Array(9).fill(null)
+            squares: Array(9).fill(null),
+            xIsNext: true
         };
     }
 
     render() {
-        const status = 'Next player: X';
+        const winner = calculateWinner(this.state.squares)
+        let status;
+        if (winner) {
+            status = 'Winner is ' + winner
+        } else {
+            status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+        }
 
         return (
             <div>
@@ -56,9 +61,40 @@ class Board extends React.Component {
 
     handleClick(i) {
         const squares = this.state.squares.slice()
-        squares[i] = 'X';
-        this.setState({squares: squares});
+        const xIsNext = this.state.xIsNext
+
+        if (squares[i] || calculateWinner(squares)) {
+            return;
+        }
+
+        squares[i] = xIsNext ? 'X' : 'O';
+        this.setState({
+            squares: squares,
+            xIsNext: !xIsNext
+        });
     }
+}
+
+function calculateWinner(squares) {
+    const lines = [
+        [0, 1, 2],
+        [3, 4, 5],
+        [6, 7, 8],
+        [0, 3, 6],
+        [1, 4, 7],
+        [2, 5, 8],
+        [0, 4, 8],
+        [6, 4, 2]
+    ]
+
+    for (let line = 0; line < lines.length; line++) {
+        let [a, b, c] = lines[line];
+        if (squares[a] === squares[b] && squares[b] === squares[c]) {
+            return squares[a];
+        }
+    }
+
+    return null;
 }
 
 export default Board;

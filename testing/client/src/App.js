@@ -1,6 +1,7 @@
 import React from 'react';
 import Login from './Login.js';
 import './App.css';
+import Service from "./Service";
 
 function Square(props) {
     return (
@@ -41,18 +42,17 @@ class Board extends React.Component {
         }
 
         if (winner && !this.state.onWinScoreUpdated) {
-            const xScore = this.state.xScore
-            const oScore = this.state.oScore
+            const newXScore = this.state.xScore + (winner === 'X' ? 1 : 0)
+            const newOScore = this.state.oScore + (winner === 'O' ? 1 : 0)
+
+            Service.setScore(xName, newXScore)
+            Service.setScore(oName, newOScore)
 
             this.setState({
-                xScore: xScore + (winner === 'X' ? 1 : 0),
-                oScore: oScore + (winner === 'O' ? 1 : 0),
+                xScore: newXScore,
+                oScore: newOScore,
                 onWinScoreUpdated: !this.state.onWinScoreUpdated
             });
-
-            //todo: send score by service
-            console.log("xScore: " + this.state.xScore);
-            console.log("oScore: " + this.state.oScore);
         }
 
         const score = xName + ' ' + this.state.xScore + '-' + this.state.oScore + ' ' + oName

@@ -17,6 +17,18 @@ class Service {
                 )
             )
     }
+
+    static setScore(login, newScore) {
+        let init = {
+            method: 'POST',
+            body: JSON.stringify({name: login, newScore: newScore}),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+
+        fetch('/score', init)
+    }
 }
 
 export default Service;

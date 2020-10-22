@@ -1,18 +1,27 @@
 var express = require('express');
 var router = express.Router();
 
+//todo: use database
+const userScore = {
+    "we": 30,
+    "qw": 40,
+    "eew": 50
+};
+
 router.post('/', function(req, res, next) {
     const name = req.body.name;
+    const newScore = req.body.newScore;
 
-    //todo: use database
-    //todo: support registration
-    const map = {
-        "we": 30,
-        "qw": 40,
-        "eew": 50
-    };
+    if (newScore != null) {
+        userScore[name] = newScore;
+        return;
+    }
 
-    res.json({ score: map[name] })
+    if (userScore[name] == null) {
+        userScore[name] = 0;
+    }
+
+    res.json({ score: userScore[name] })
 });
 
 module.exports = router;

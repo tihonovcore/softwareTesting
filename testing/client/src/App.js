@@ -17,10 +17,14 @@ class Board extends React.Component {
         this.state = {
             squares: Array(9).fill(null),
             xIsNext: true,
+            onWinScoreUpdated: false,
+
             xName: props.xName,
             oName: props.oName,
             xScore: props.xScore,
             oScore: props.oScore,
+
+            finish: props.finish,
         };
     }
 
@@ -31,12 +35,43 @@ class Board extends React.Component {
 
         let status;
         if (winner) {
-            status = 'Winner is ' + (winner.toString() === 'X' ? xName : oName) + ' (' + winner + ')'
+            status = 'Winner is ' + (winner.toString() === 'X' ? xName : oName) + ' (' + winner + ')';
         } else {
             status = 'Next player: ' + (this.state.xIsNext ? xName + ' (X)' : oName + ' (O)');
         }
 
+        if (winner && !this.state.onWinScoreUpdated) {
+            const xScore = this.state.xScore
+            const oScore = this.state.oScore
+
+            this.setState({
+                xScore: xScore + (winner === 'X' ? 1 : 0),
+                oScore: oScore + (winner === 'O' ? 1 : 0),
+                onWinScoreUpdated: !this.state.onWinScoreUpdated
+            });
+
+            //todo: send score by service
+            console.log("xScore: " + this.state.xScore);
+            console.log("oScore: " + this.state.oScore);
+        }
+
         const score = xName + ' ' + this.state.xScore + '-' + this.state.oScore + ' ' + oName
+
+        let repeat = null;
+        if (winner) {
+            repeat = (
+                <button
+                    onClick={() => {
+                        this.setState({
+                            squares: Array(9).fill(null),
+                            onWinScoreUpdated: false
+                        })
+                    }}
+                >
+                    Repeat
+                </button>
+            );
+        }
 
         return (
             <div>
@@ -56,6 +91,10 @@ class Board extends React.Component {
                     {this.renderSquare(6)}
                     {this.renderSquare(7)}
                     {this.renderSquare(8)}
+                </div>
+                <div>
+                    <button onClick={this.state.finish}>Finish</button>
+                    {repeat}
                 </div>
             </div>
         );
@@ -116,6 +155,8 @@ class Game extends React.Component {
         this.setXScore = this.setXScore.bind(this);
         this.setOScore = this.setOScore.bind(this);
 
+        this.finish = this.finish.bind(this);
+
         this.state = {
             logged: false,
             xName: "",
@@ -159,6 +200,8 @@ class Game extends React.Component {
                     oName={this.state.oName}
                     xScore={this.state.xScore}
                     oScore={this.state.oScore}
+
+                    finish={this.finish}
                 />
             );
         }
@@ -170,6 +213,16 @@ class Game extends React.Component {
             xName: xName,
             oName: oName,
         });
+    }
+
+    finish() {
+        this.setState({
+            logged: false,
+            xName: "",
+            oName: "",
+            xScore: null,
+            oScore: null
+        })
     }
 
     scoreNotLoaded = () => this.state.xScore == null || this.state.oScore == null

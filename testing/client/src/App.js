@@ -16,21 +16,31 @@ class Board extends React.Component {
 
         this.state = {
             squares: Array(9).fill(null),
-            xIsNext: true
+            xIsNext: true,
+            xName: props.xName,
+            oName: props.oName,
+            xScore: props.xScore,
+            oScore: props.oScore,
         };
     }
 
     render() {
-        const winner = calculateWinner(this.state.squares)
+        const winner = calculateWinner(this.state.squares);
+        const xName = this.state.xName;
+        const oName = this.state.oName;
+
         let status;
         if (winner) {
-            status = 'Winner is ' + winner
+            status = 'Winner is ' + (winner.toString() === 'X' ? xName : oName) + ' (' + winner + ')'
         } else {
-            status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
+            status = 'Next player: ' + (this.state.xIsNext ? xName + ' (X)' : oName + ' (O)');
         }
+
+        const score = xName + ' ' + this.state.xScore + '-' + this.state.oScore + ' ' + oName
 
         return (
             <div>
+                <div className="score">{score}</div>
                 <div className="status">{status}</div>
                 <div className="board-row">
                     {this.renderSquare(0)}
@@ -107,7 +117,9 @@ class Game extends React.Component {
         this.state = {
             logged: false,
             xName: "",
-            oName: ""
+            oName: "",
+            xScore: 0,
+            oScore: 0
         };
     }
 
@@ -121,15 +133,24 @@ class Game extends React.Component {
                 />
             );
         } else {
-            return (<Board/>);
+            return (
+                <Board
+                    xName={this.state.xName}
+                    oName={this.state.oName}
+                    xScore={this.state.xScore}
+                    oScore={this.state.oScore}
+                />
+            );
         }
     }
 
-    onLogin(xName, oName) {
+    onLogin(xName, oName, xScore, oScore) {
         this.setState({
             logged: true,
             xName: xName,
-            oName: oName
+            oName: oName,
+            xScore: xScore,
+            oScore: oScore,
         });
     }
 }

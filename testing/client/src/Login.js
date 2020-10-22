@@ -1,9 +1,11 @@
 import React from "react";
+import Service from "./Service";
 
 class Login extends React.Component {
     constructor(props) {
         super(props);
 
+        //todo: change to empty string
         this.state = {
             xName: props.xName,
             oName: props.oName,
@@ -49,7 +51,13 @@ class Login extends React.Component {
     }
 
     submitHandler(event) {
-        this.props.onLogin(this.state.xName, this.state.oName)
+        const xName = this.state.xName;
+        const oName = this.state.oName;
+
+        const xScore = Service.getScore(xName);
+        const oScore = Service.getScore(oName);
+
+        this.props.onLogin(xName, oName, xScore, oScore)
         event.preventDefault();
     }
 }

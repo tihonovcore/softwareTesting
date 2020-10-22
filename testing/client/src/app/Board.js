@@ -1,15 +1,6 @@
 import React from 'react';
-import Login from './Login.js';
-import './App.css';
+import Square from "./Square";
 import Service from "./Service";
-
-function Square(props) {
-    return (
-        <button className="square" onClick={props.onClick}>
-            {props.value}
-        </button>
-    );
-}
 
 class Board extends React.Component {
     constructor(props) {
@@ -42,8 +33,8 @@ class Board extends React.Component {
         }
 
         if (winner && !this.state.onWinScoreUpdated) {
-            const newXScore = this.state.xScore + (winner === 'X' ? 1 : 0)
-            const newOScore = this.state.oScore + (winner === 'O' ? 1 : 0)
+            const newXScore = this.state.xScore + (winner.toString() === 'X' ? 1 : 0)
+            const newOScore = this.state.oScore + (winner.toString() === 'O' ? 1 : 0)
 
             Service.setScore(xName, newXScore)
             Service.setScore(oName, newOScore)
@@ -147,85 +138,4 @@ function calculateWinner(squares) {
     return null;
 }
 
-class Game extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.onLogin = this.onLogin.bind(this);
-        this.setXScore = this.setXScore.bind(this);
-        this.setOScore = this.setOScore.bind(this);
-
-        this.finish = this.finish.bind(this);
-
-        this.state = {
-            logged: false,
-            xName: "",
-            oName: "",
-            xScore: null,
-            oScore: null
-        };
-    }
-
-    setXScore(v) {
-        this.setState({
-            xScore: v
-        });
-    }
-
-    setOScore(v) {
-        this.setState({
-            oScore: v
-        });
-    }
-
-    render() {
-        if (!this.state.logged) {
-            return (
-                <Login
-                    setXScore={this.setXScore}
-                    setOScore={this.setOScore}
-                    onLogin={this.onLogin}
-                />
-            );
-        } else if (this.scoreNotLoaded()) {
-            return (
-                <div>
-                    <h3>Loading</h3>
-                </div>
-            )
-        } else {
-            return (
-                <Board
-                    xName={this.state.xName}
-                    oName={this.state.oName}
-                    xScore={this.state.xScore}
-                    oScore={this.state.oScore}
-
-                    finish={this.finish}
-                />
-            );
-        }
-    }
-
-    onLogin(xName, oName) {
-        this.setState({
-            logged: true,
-            xName: xName,
-            oName: oName,
-        });
-    }
-
-    finish() {
-        this.setState({
-            logged: false,
-            xName: "",
-            oName: "",
-            xScore: null,
-            oScore: null
-        })
-    }
-
-    scoreNotLoaded = () => this.state.xScore == null || this.state.oScore == null
-}
-
-export default Game;
+export default Board;

@@ -5,10 +5,11 @@ class Login extends React.Component {
     constructor(props) {
         super(props);
 
-        //todo: change to empty string
         this.state = {
-            xName: props.xName,
-            oName: props.oName,
+            xName: "",
+            oName: "",
+            setXScore: props.setXScore,
+            setOScore: props.setOScore,
         };
 
         this.xPlayerNameHandler = this.xPlayerNameHandler.bind(this);
@@ -54,10 +55,10 @@ class Login extends React.Component {
         const xName = this.state.xName;
         const oName = this.state.oName;
 
-        const xScore = Service.getScore(xName);
-        const oScore = Service.getScore(oName);
+        Service.getScore(xName, this.state.setXScore);
+        Service.getScore(oName, this.state.setOScore);
 
-        this.props.onLogin(xName, oName, xScore, oScore)
+        this.props.onLogin(xName, oName)
         event.preventDefault();
     }
 }

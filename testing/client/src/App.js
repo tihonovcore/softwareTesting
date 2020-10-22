@@ -113,25 +113,45 @@ class Game extends React.Component {
         super(props);
 
         this.onLogin = this.onLogin.bind(this);
+        this.setXScore = this.setXScore.bind(this);
+        this.setOScore = this.setOScore.bind(this);
 
         this.state = {
             logged: false,
             xName: "",
             oName: "",
-            xScore: 0,
-            oScore: 0
+            xScore: null,
+            oScore: null
         };
+    }
+
+    setXScore(v) {
+        this.setState({
+            xScore: v
+        });
+    }
+
+    setOScore(v) {
+        this.setState({
+            oScore: v
+        });
     }
 
     render() {
         if (!this.state.logged) {
             return (
                 <Login
-                    xName={this.state.xName}
-                    oName={this.state.oName}
+                    setXScore={this.setXScore}
+                    setOScore={this.setOScore}
                     onLogin={this.onLogin}
                 />
             );
+        } else if (this.scoreNotLoaded()) {
+            return (
+                <div>
+                    <h3>Loading</h3>
+                </div>
+            )
         } else {
             return (
                 <Board
@@ -144,15 +164,15 @@ class Game extends React.Component {
         }
     }
 
-    onLogin(xName, oName, xScore, oScore) {
+    onLogin(xName, oName) {
         this.setState({
             logged: true,
             xName: xName,
             oName: oName,
-            xScore: xScore,
-            oScore: oScore,
         });
     }
+
+    scoreNotLoaded = () => this.state.xScore == null || this.state.oScore == null
 }
 
 export default Game;

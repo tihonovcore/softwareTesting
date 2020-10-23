@@ -25,6 +25,7 @@ class Login extends React.Component {
                     <label>
                         X player name:
                         <input
+                            data-testid="x_player_name"
                             type="text"
                             value={this.state.xName}
                             onChange={this.xPlayerNameHandler}
@@ -33,12 +34,13 @@ class Login extends React.Component {
                     <label>
                         O player name:
                         <input
+                            data-testid="o_player_name"
                             type="text"
                             value={this.state.oName}
                             onChange={this.oPlayerNameHandler}
                         />
                     </label><br/>
-                    <input type="submit" value="Submit"/>
+                    <input data-testid="login" type="submit" value="Submit"/>
                 </form>
             </div>
         );

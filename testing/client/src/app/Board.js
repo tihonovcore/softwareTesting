@@ -53,6 +53,7 @@ class Board extends React.Component {
         if (winner) {
             repeat = (
                 <button
+                    data-testid="repeat_button"
                     onClick={() => {
                         this.setState({
                             squares: Array(9).fill(null),
@@ -85,7 +86,7 @@ class Board extends React.Component {
                     {this.renderSquare(8)}
                 </div>
                 <div>
-                    <button onClick={this.state.finish}>Finish</button>
+                    <button data-testid="finish_button" onClick={this.state.finish}>Finish</button>
                     {repeat}
                 </div>
             </div>
@@ -97,6 +98,7 @@ class Board extends React.Component {
             <Square
                 value={this.state.squares[i]}
                 onClick={() => this.handleClick(i)}
+                testId={i.toString()}
             />
         );
     }

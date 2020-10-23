@@ -1,5 +1,4 @@
 import React from "react";
-import Service from "./Service";
 
 class Login extends React.Component {
     constructor(props) {
@@ -10,6 +9,8 @@ class Login extends React.Component {
             oName: "",
             setXScore: props.setXScore,
             setOScore: props.setOScore,
+
+            service: props.service
         };
 
         this.xPlayerNameHandler = this.xPlayerNameHandler.bind(this);
@@ -55,8 +56,8 @@ class Login extends React.Component {
         const xName = this.state.xName;
         const oName = this.state.oName;
 
-        Service.getScore(xName, this.state.setXScore);
-        Service.getScore(oName, this.state.setOScore);
+        this.state.service.getScore(xName, this.state.setXScore);
+        this.state.service.getScore(oName, this.state.setOScore);
 
         this.props.onLogin(xName, oName)
         event.preventDefault();

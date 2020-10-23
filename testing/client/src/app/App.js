@@ -19,7 +19,9 @@ class Game extends React.Component {
             xName: "",
             oName: "",
             xScore: null,
-            oScore: null
+            oScore: null,
+
+            service: props.service
         };
     }
 
@@ -42,6 +44,8 @@ class Game extends React.Component {
                     setXScore={this.setXScore}
                     setOScore={this.setOScore}
                     onLogin={this.onLogin}
+
+                    service={this.state.service}
                 />
             );
         } else if (this.scoreNotLoaded()) {
@@ -59,6 +63,8 @@ class Game extends React.Component {
                     oScore={this.state.oScore}
 
                     finish={this.finish}
+
+                    service={this.state.service}
                 />
             );
         }

@@ -1,6 +1,5 @@
 import React from 'react';
 import Square from "./Square";
-import Service from "./Service";
 
 class Board extends React.Component {
     constructor(props) {
@@ -17,6 +16,8 @@ class Board extends React.Component {
             oScore: props.oScore,
 
             finish: props.finish,
+
+            service: props.service
         };
     }
 
@@ -36,8 +37,8 @@ class Board extends React.Component {
             const newXScore = this.state.xScore + (winner.toString() === 'X' ? 1 : 0)
             const newOScore = this.state.oScore + (winner.toString() === 'O' ? 1 : 0)
 
-            Service.setScore(xName, newXScore)
-            Service.setScore(oName, newOScore)
+            this.state.service.setScore(xName, newXScore)
+            this.state.service.setScore(oName, newOScore)
 
             this.setState({
                 xScore: newXScore,

@@ -2,7 +2,7 @@ import React from "react";
 import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 
-import Board from "../app/Board";
+import Board from "../src/app/Board";
 import {getByTestId} from "@testing-library/dom";
 import TestService from "./TestService";
 

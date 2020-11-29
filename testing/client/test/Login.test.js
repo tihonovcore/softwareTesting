@@ -4,7 +4,7 @@ import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 
 import {getByTestId} from "@testing-library/dom";
-import Login from "../app/Login";
+import Login from "../src/app/Login";
 import TestService from "./TestService";
 
 let container = null;

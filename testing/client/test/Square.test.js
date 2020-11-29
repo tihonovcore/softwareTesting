@@ -2,7 +2,7 @@ import React from "react";
 import { render, unmountComponentAtNode } from "react-dom";
 import { act } from "react-dom/test-utils";
 
-import Square from "../app/Square";
+import Square from "../src/app/Square";
 
 let container = null;
 beforeEach(() => {

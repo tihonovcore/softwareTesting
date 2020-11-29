@@ -3,7 +3,7 @@ import { render, unmountComponentAtNode } from "react-dom";
 import ReactTestUtils, { act } from "react-dom/test-utils";
 
 import {getByTestId} from "@testing-library/dom";
-import Game from "../app/App";
+import Game from "../src/app/App";
 import TestService from "./TestService";
 import UnavailableTestService from "./UnavailableTestService";
 

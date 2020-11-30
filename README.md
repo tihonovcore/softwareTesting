@@ -28,4 +28,4 @@
 
 * Обычные тесты `~/softwareTesting/client$ npm test ./test/*`
 * Cypress `~/softwareTesting/client$ npx cypress open`
-* Playwright `none`
+* Playwright `~/softwareTesting/client/playwright$ npx folio --param browserName=chromium`

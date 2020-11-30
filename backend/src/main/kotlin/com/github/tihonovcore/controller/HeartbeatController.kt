@@ -1,4 +1,4 @@
-package com.github.tihonovcore
+package com.github.tihonovcore.controller
 
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RestController

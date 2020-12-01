@@ -3,9 +3,9 @@ package com.github.tihonovcore.dao
 import com.github.tihonovcore.model.User
 import com.github.tihonovcore.sql.SqlFacade
 
-private const val databaseUrl = "jdbc:sqlite:xo_users.db"
-
-open class UserJdbcDao : UserDao {
+open class UserJdbcDao(
+    val databaseUrl: String = "jdbc:sqlite:xo_users.db"
+) : UserDao {
     override fun getUser(userName: String): User {
         return SqlFacade<User>(databaseUrl).databaseAction { statement ->
             val sql = "select * from Users where username = '$userName';"

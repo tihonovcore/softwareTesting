@@ -5,9 +5,9 @@ import com.github.tihonovcore.sql.SqlFacade
 
 private const val databaseUrl = "jdbc:sqlite:xo_users.db"
 
-class UserJdbcDao : UserDao {
+open class UserJdbcDao : UserDao {
     override fun getUser(userName: String): User {
-        return SqlFacade(databaseUrl).databaseAction { statement ->
+        return SqlFacade<User>(databaseUrl).databaseAction { statement ->
             val sql = "select * from Users where username = '$userName';"
             val result = statement.executeQuery(sql)
 
@@ -22,7 +22,7 @@ class UserJdbcDao : UserDao {
     }
 
     override fun addUser(user: User) {
-        SqlFacade(databaseUrl).databaseAction { statement ->
+        SqlFacade<Unit>(databaseUrl).databaseAction { statement ->
             val remove = "delete from Users where username = '${user.name}';"
             val update = "insert into Users (username, score) values ('${user.name}', ${user.score});"
 
@@ -32,7 +32,7 @@ class UserJdbcDao : UserDao {
     }
 
     init {
-        SqlFacade(databaseUrl).databaseAction { statement ->
+        SqlFacade<Unit>(databaseUrl).databaseAction { statement ->
             val sql = """create table if not exists Users
                         |(
                         |  username varchar(50) not null primary key,

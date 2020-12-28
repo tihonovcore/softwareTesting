@@ -4,14 +4,14 @@ on:
   push:
     branches: [ main, frontend ]
   pull_request:
-    branches: [ main ]
+    branches: [ main, frontend ]
 
 defaults:
   run:
     working-directory: ./client
-jobs:
-  build:
 
+jobs:
+  buildAndRunTests:
     runs-on: ubuntu-latest
 
     strategy:
@@ -26,4 +26,3 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: npm install
       - run: npm test ./test/*
-

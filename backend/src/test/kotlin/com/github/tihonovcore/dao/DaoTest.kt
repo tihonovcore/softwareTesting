@@ -21,7 +21,16 @@ internal class DaoTest {
     @AfterEach
     fun clearDB() {
         SqlFacade<Unit>(databaseUrl).databaseAction { statement ->
-            statement.executeUpdate("delete from Users where true;")
+            val create = """create table if not exists Users
+                        |(
+                        |  username varchar(50) not null primary key,
+                        |  score int not null default 0
+                        |);
+            """.trimMargin()
+            val clear = "delete from Users where true;"
+
+            statement.executeUpdate(create)
+            statement.executeUpdate(clear)
         }
     }
 

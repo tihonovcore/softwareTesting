@@ -34,7 +34,7 @@ jobs:
   selenideTests:
     defaults:
       run:
-        working-directory: ./client
+        working-directory: ./selenide
         
     runs-on: ubuntu-latest
 

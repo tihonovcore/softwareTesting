@@ -23,4 +23,4 @@ jobs:
       - run: dir
       - run: ./gradlew test --info
         continue-on-error: true
-      - run: cat /home/runner/work/softwareTesting/softwareTesting/backend/build/reports/tests/test/index.html
+      - run: cat classes/Gradle%2320Test%2320Executor%23201.html

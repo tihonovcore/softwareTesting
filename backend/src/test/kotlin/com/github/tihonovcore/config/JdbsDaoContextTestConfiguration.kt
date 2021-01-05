@@ -1,4 +1,4 @@
-package com.github.tihonovcore
+package com.github.tihonovcore.config
 
 import com.github.tihonovcore.dao.UserJdbcDao
 import org.springframework.boot.test.context.TestConfiguration

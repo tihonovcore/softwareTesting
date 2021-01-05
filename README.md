@@ -1,7 +1,8 @@
 # softwareTesting
 
-### React-Express
+## React-Express
 
+Начал с фронтенда на React (`./client`) и бэкэнда на Express (`./api`).
 Взял пример крестики-нолики с сайта и переворотил.
 
 1. Экран 1: игрок крестик и игрок нолик могут ввести имена. `client` пойдет к `api` и попросит число их побед, если игрока не было в базе - зарегистрирует
@@ -29,3 +30,16 @@
 * Обычные тесты `~/softwareTesting/client$ npm test ./test/*`
 * Cypress `~/softwareTesting/client$ npx cypress open`
 * Playwright `~/softwareTesting/client/playwright$ npx folio --param browserName=chromium`
+
+## Spring
+
+В `./backend` лежит spring-приложение. Для взаимодействия с ним клиента нужно изменить `./client/src/index.js`
+и указать `"proxy": "http://localhost:8080"` в `./client/package.json`
+
+## Actions
+
+Добавил actions для FE и BE. Но почему-то с на BE не проходят тесты, хотя локально все оk. Action для FE работает.
+
+## Selenide
+
+В `./selenide` есть UI-тесты

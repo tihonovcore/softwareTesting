@@ -38,7 +38,7 @@
 
 ## Actions
 
-Добавил actions для FE и BE. Но почему-то с на BE не проходят тесты, хотя локально все оk. Action для FE работает.
+Добавил actions для FE и BE.
 
 ## Selenide
 
